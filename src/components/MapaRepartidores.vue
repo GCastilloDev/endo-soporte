@@ -53,7 +53,7 @@ export default {
         container: this.$refs.map,
         style: "mapbox://styles/mapbox/streets-v11",
         center: center,
-        zoom: 11.5,
+        zoom: 12,
       });
     },
     drawRepartidores() {
@@ -61,7 +61,11 @@ export default {
         let marker = new mapboxgl.Marker();
         let LngLat = e.ubicacion.coordinates;
         let color =
-          e.ubicacion.delivery_status == "DISPONIBLE" ? "#FE0545" : "#F6BB33";
+          e.ubicacion.delivery_status == "DISPONIBLE"
+            ? "41B883"
+            : e.ubicacion.delivery_status == "EN RUTA"
+            ? "#F6BB33"
+            : "#FE0545";
 
         let popup = new mapboxgl.Popup({
           closeButton: false,
@@ -76,10 +80,10 @@ export default {
         let markerHTML = marker.getElement();
         markerHTML.children[0].children[0].children[1].style.fill = `${color}`;
         markerHTML.children[0].children[0].children[2].style.fill = `${color}`;
-        markerHTML.click();
-        markerHTML.addEventListener("click", (e) => {
-          e.stopPropagation();
-        });
+        // markerHTML.click();
+        // markerHTML.addEventListener("click", (e) => {
+        //   e.stopPropagation();
+        // });
         this.marcadores.push(marker);
       });
     },

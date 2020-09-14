@@ -1,13 +1,17 @@
 <template>
   <v-container class="pa-0">
-    <v-row class="red contenido d-flex justify-center align-center">
+    <v-row class="contenido d-flex justify-center align-center">
       <v-col cols="6">
         <v-card>
-          <v-card-title>Login</v-card-title>
+          <v-card-title class="d-flex justify-center">Soporte</v-card-title>
+          <v-card-title class="d-flex justify-center">
+            <v-img max-width="300px" src="../assets/logoEndoRed.svg"></v-img>
+          </v-card-title>
           <v-card-text>
             <v-row class="d-flex justify-center">
-              <v-col cols="10">
+              <v-col cols="10" class="pb-0 mb-0">
                 <v-text-field
+                  dense
                   v-model="usuario.username"
                   label="Usuario"
                   color="green"
@@ -17,6 +21,7 @@
               </v-col>
               <v-col cols="10">
                 <v-text-field
+                  dense
                   v-model="usuario.password"
                   type="password"
                   label="Contraseña"
@@ -30,12 +35,12 @@
                   <strong>{{ errorMessage }}</strong>
                 </v-alert>
               </v-col>
-              <v-col cols="4">
+              <v-col cols="6">
                 <v-btn
                   block
                   depressed
                   :loading="loading"
-                  color="green"
+                  color="#2B3755"
                   dark
                   @click="ingresar"
                 >Ingresar</v-btn>

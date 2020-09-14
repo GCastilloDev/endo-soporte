@@ -1,4 +1,5 @@
 import { db } from './Firebase.config';
+import moment from 'moment';
 
 export default class Pedido {
   #id;
@@ -32,9 +33,12 @@ export default class Pedido {
       folio: this.#folio,
       nombreComercio: this.#nombreComercio,
       avatar: this.#imagen,
-      hora: this.#fecha,
-      fecha: this.#fecha,
-      total: this.#costo,
+      hora: obtenerHora(this.#fecha),
+      fecha: obtenerFecha(this.#fecha),
+      total: new Intl.NumberFormat('es-MX', {
+        style: 'currency',
+        currency: 'MXN',
+      }).format(this.#costo),
     };
   }
 
@@ -50,4 +54,16 @@ export default class Pedido {
         console.log('Documento actualizado');
       });
   }
+}
+
+function obtenerHora(fechaMilisegundos) {
+  let fecha = new Date(fechaMilisegundos);
+  moment.locale('en');
+  return moment(fecha).format('LT');
+}
+
+function obtenerFecha(fechaMilisegundos) {
+  let fecha = new Date(fechaMilisegundos);
+  moment.locale('es');
+  return moment(fecha).format('L');
 }

@@ -20,7 +20,7 @@
                     <strong>{{pedido.getPedido().folio}}</strong>
                   </h4>
                 </v-col>
-                <v-col cols="4" class="d-flex justify-center">{{pedido.getPedido().fecha}}</v-col>
+                <v-col cols="4" class="d-flex justify-center">{{pedido.getPedido().hora}}</v-col>
                 <v-col cols="4" class="d-flex justify-center">{{pedido.getPedido().fecha}}</v-col>
                 <v-col cols="4" class="d-flex justify-center">{{pedido.getPedido().total}}</v-col>
               </v-row>
