@@ -10,7 +10,7 @@ export default class SinRepartidor {
     this.#db = location.host.includes('soporte.endomorelia.app')
       ? 'DLIVERYECPROD'
       : 'DLIVERYEC';
-    this.#status = 'SIN REPARTIDOR';
+    this.#status = 'SIN REPARTIDORES';
   }
 
   listen() {
