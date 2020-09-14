@@ -3,11 +3,11 @@
     <h1>Soporte Endo</h1>
 
     <v-row class="mt-6">
-      <v-col cols="6" class="pedidos">
+      <v-col cols="5" class="pedidos">
         <h3>Pedidos pendientes</h3>
         <Pedidos />
       </v-col>
-      <v-col cols="6">
+      <v-col cols="7">
         <MapaRepartidores />
       </v-col>
     </v-row>

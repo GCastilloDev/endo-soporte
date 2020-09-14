@@ -29,7 +29,7 @@
           <v-card-actions>
             <v-btn
               block
-              color="blue-grey darken-1"
+              color="#FE0545"
               dark
               depressed
               @click="buscarRepartidor(index)"
