@@ -27,7 +27,13 @@
             </v-col>
           </v-row>
           <v-card-actions>
-            <v-btn block color="green" dark depressed>Asignar repartidor</v-btn>
+            <v-btn
+              block
+              color="green"
+              dark
+              depressed
+              @click="buscarRepartidor(index)"
+            >Asignar repartidor</v-btn>
           </v-card-actions>
         </v-container>
       </v-card>
@@ -43,6 +49,11 @@ export default {
   mounted() {
     const sinRepartidor = new SinRepartidor();
     sinRepartidor.listen();
+  },
+  methods: {
+    buscarRepartidor(index) {
+      this.pedidos[index].buscarRepartidor();
+    },
   },
   computed: {
     ...mapState(["pedidos"]),

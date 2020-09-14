@@ -1,3 +1,5 @@
+import { db } from './Firebase.config';
+
 export default class Pedido {
   #id;
   #folio;
@@ -6,6 +8,7 @@ export default class Pedido {
   #fecha;
   #imagen;
   #costo;
+  #db;
 
   constructor(idPedido, nombreComercio, fecha, imagen, costo) {
     this.#urlBase =
@@ -18,6 +21,9 @@ export default class Pedido {
     this.#fecha = fecha;
     this.#imagen = `${this.#urlBase}${imagen}`;
     this.#costo = costo;
+    this.#db = location.host.includes('soporte.endomorelia.app')
+      ? 'DLIVERYECPROD'
+      : 'DLIVERYEC';
   }
 
   getPedido() {
@@ -30,5 +36,18 @@ export default class Pedido {
       fecha: this.#fecha,
       total: this.#costo,
     };
+  }
+
+  buscarRepartidor() {
+    db.collection(this.#db)
+      .doc('DLIVERYEC')
+      .collection('Pedidos')
+      .doc(this.#id)
+      .update({
+        status: 'BUSCANDO REPARTIDOR',
+      })
+      .then(() => {
+        console.log('Documento actualizado');
+      });
   }
 }
