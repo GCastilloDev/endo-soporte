@@ -7,7 +7,16 @@ export default new Vuex.Store({
   state: {
     pedidos: [],
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    UNSET_ORDERS(state) {
+      state.pedidos = [];
+    }
+  },
+  actions: {
+    logout({ commit }) {
+      localStorage.removeItem('token');
+      commit('UNSET_ORDERS');
+    }
+  },
   modules: {},
 });

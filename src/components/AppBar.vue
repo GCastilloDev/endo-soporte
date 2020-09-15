@@ -28,15 +28,21 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "AppBar",
   data: () => ({
     drawer: false,
   }),
   methods: {
+    ...mapActions(["logout"]),
     cerrarSesion() {
-      localStorage.clear();
-      this.$router.push("/login");
+      this.logout();
+      this.$router.push('/login');
+
+      // localStorage.clear();
+      // this.$router.push("/login");
     },
   },
 };
