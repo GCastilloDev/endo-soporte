@@ -1,13 +1,13 @@
 <template>
   <div>
     <AppBar />
-    <v-container>
+    <v-container class="pt-0">
       <v-row class="mt-6">
-        <v-col cols="5" class="pedidos">
-          <h3>Pedidos pendientes</h3>
+        <v-col cols="5" class="pedidos mt-0 pt-0">
+          <!-- <h3>Pedidos pendientes</h3> -->
           <Pedidos />
         </v-col>
-        <v-col cols="7">
+        <v-col cols="7" class="pa-0">
           <MapaRepartidores />
         </v-col>
       </v-row>
@@ -33,7 +33,7 @@ export default {
 
 <style lang="css" scoped>
 .pedidos {
-  height: 80vh;
+  height: 85vh;
   overflow-y: scroll;
 }
 </style>

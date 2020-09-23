@@ -10,3 +10,17 @@ $font-weights: (
   'bold': 700,
   'black': 800,
 );
+
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar {
+  background: #f5f5f5;
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  background: #E0043C;
+}

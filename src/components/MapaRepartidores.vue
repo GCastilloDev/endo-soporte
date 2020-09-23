@@ -4,7 +4,7 @@
       <div ref="map" class="map"></div>
     </v-col>
     <v-col cols="12" class="pt-0">
-      <v-btn depressed color="#FE0545" dark block :loading="loading" @click="buscarRepartidores">
+      <v-btn depressed color="#FE0545" dark block :loading="loading" @click="buscarRepartidores" tile>
         <v-icon left>mdi-map-search</v-icon>Buscar repartidores
       </v-btn>
     </v-col>
@@ -51,7 +51,7 @@ export default {
 
       this.map = new mapboxgl.Map({
         container: this.$refs.map,
-        style: "mapbox://styles/mapbox/streets-v11",
+        style: "mapbox://styles/mapbox/dark-v10",
         center: center,
         zoom: 12,
       });
