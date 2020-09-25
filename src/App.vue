@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-main class="blue-grey lighten-5">
+    <v-main class="fondo">
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -12,3 +12,10 @@ export default {
   data: () => ({}),
 };
 </script>
+
+<style lang="css">
+
+.fondo {
+  background-color: #F4F4F6;
+}
+</style>

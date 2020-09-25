@@ -8,10 +8,13 @@
           <Pedidos />
         </v-col>
         <v-col cols="7" class="pa-0">
-          <MapaRepartidores />
+          <MapaRepartidores @overlay="changeOverlay"/>
         </v-col>
       </v-row>
     </v-container>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
@@ -27,6 +30,14 @@ export default {
     Pedidos,
     MapaRepartidores,
     AppBar,
+  },
+  data: () => ({
+    overlay: false,
+  }),
+  methods: {
+    changeOverlay() {
+      this.overlay = !this.overlay;
+    },
   },
 };
 </script>
