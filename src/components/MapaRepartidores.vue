@@ -146,7 +146,7 @@ export default {
       });
     },
     async buscarRepartidores() {
-      // this.loading = true;
+      this.loading = true;
       this.$emit("overlay");
       this.reiniciarRepartidores();
       await this.getRepartidores();
@@ -154,7 +154,7 @@ export default {
       // await this.map.setCenter(this.repartidores[0].ubicacion.coordinates);
       await this.drawRepartidores();
       this.$emit("overlay");
-      // this.loading = false;
+      this.loading = false;
     },
     contarRepartidores(tipoRepartidor) {
       if (tipoRepartidor == "DISPONIBLE") this.tiposRepartidores.disponible++;
