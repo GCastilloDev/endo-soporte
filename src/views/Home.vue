@@ -8,7 +8,7 @@
           <Pedidos />
         </v-col>
         <v-col cols="7" class="pa-0">
-          <MapaRepartidores @overlay="changeOverlay"/>
+          <MapaRepartidores @overlay="changeOverlay" />
         </v-col>
       </v-row>
     </v-container>
@@ -23,9 +23,22 @@ import AppBar from "../components/AppBar";
 import Pedidos from "../components/Pedidos";
 import MapaRepartidores from "../components/MapaRepartidores";
 
+// import Socket from "../common/socket/Socket";
+
+
 export default {
   name: "Home",
-
+  mounted() {
+    // let emitter = require("emitter-io");
+    // let socket = new Socket(
+    //   "ZhsnL8uQ9szZ-F7aaDChbtFEaXLNGLyM",
+    //   emitter,
+    //   "endo-soporte-repartidores"
+    // );
+    // socket.connect();
+    // socket.listen();
+    // socket.publish();
+  },
   components: {
     Pedidos,
     MapaRepartidores,

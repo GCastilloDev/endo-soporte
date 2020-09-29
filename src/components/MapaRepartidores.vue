@@ -9,19 +9,7 @@
     <v-col cols="12" class="white mapa--contenedor">
       <div ref="map" class="map"></div>
     </v-col>
-    <!-- <v-col cols="12" class="pt-0">
-      <v-btn
-        depressed
-        color="#FE0545"
-        dark
-        block
-        :loading="loading"
-        @click="buscarRepartidores"
-        tile
-      >
-        <v-icon left>mdi-map-search</v-icon>Buscar repartidores
-      </v-btn>
-    </v-col> -->
+    
   </v-row>
 </template>
 
@@ -29,11 +17,14 @@
 import mapboxgl from "mapbox-gl";
 import repartidores from "../common/Repartidores";
 import ContadorRepartidores from "./ContadorRepartidores";
+import Map from "../common/maps/Map";
+import Repartidor from "../common/maps/Repartidor";
 
 export default {
   name: "MapaRepartidores",
   mounted() {
     this.init();
+
     this.$el.addEventListener("click", (e) => {
       console.log(e.target.dataset.repartidor);
     });
@@ -56,9 +47,15 @@ export default {
   methods: {
     async init() {
       this.$emit("overlay");
+      let map = new Map(
+        this.$refs.map,
+        mapboxgl,
+        "pk.eyJ1IjoiZ3VzdGF2b2NteCIsImEiOiJja2JicHRwOTAwM2xvMzBtb2Y5YXE1dmR5In0.pBZI2pb23_lbx7bH52MJnA"
+      );
+      map.drawMap();
       await this.getRepartidores();
-      await this.drawMap();
-      await this.drawRepartidores();
+      // await this.drawMap();
+      await this.drawRepartidores(map);
       this.$emit("overlay");
     },
     async getRepartidores() {
@@ -77,7 +74,8 @@ export default {
       mapboxgl.accessToken =
         "pk.eyJ1IjoiZ3VzdGF2b2NteCIsImEiOiJja2JicHRwOTAwM2xvMzBtb2Y5YXE1dmR5In0.pBZI2pb23_lbx7bH52MJnA";
 
-      let center = this.repartidores[0].ubicacion.coordinates;
+      // let center = this.repartidores[0].ubicacion.coordinates;
+      let center = [0, 0];
 
       this.map = new mapboxgl.Map({
         container: this.$refs.map,
@@ -86,58 +84,25 @@ export default {
         zoom: 12,
       });
     },
-    drawRepartidores() {
-      this.repartidores.forEach((e) => {
-        this.contarRepartidores(e.ubicacion.delivery_status);
-        // let marker = new mapboxgl.Marker();
-        // let LngLat = e.ubicacion.coordinates;
-        // let color =
-        //   e.ubicacion.delivery_status == "DISPONIBLE"
-        //     ? "41B883"
-        //     : e.ubicacion.delivery_status == "EN RUTA"
-        //     ? "#F6BB33"
-        //     : "#FE0545";
-
-        let popup = new mapboxgl.Popup({
-          closeButton: false,
-          closeOnClick: false,
-          offset: 33,
-        }).setHTML(
-          `<h1 style="font-family: 'Poppins'; font-weight: bold; font-size: .9rem;">${e.nombres}</h1><h2 style="font-family: 'Poppins'; font-weight: normal; font-size: .8rem;">${e.telefono}</h2>`
+    drawRepartidores(map) {
+      this.repartidores.forEach((e, index) => {
+        
+        let repartidor = new Repartidor(
+          e._id,
+          e.nombres,
+          e.apellidos,
+          e.urlFotos,
+          e.telefono,
+          e.ubicacion.coordinates,
+          e.ubicacion.delivery_status
         );
 
-        // marker.setLngLat(LngLat).setPopup(popup).addTo(this.map);
+        if (index == 0) {
+          map.fly(repartidor.get().ubicacion);
+          map.drawMarker(repartidor);
+        }
 
-        // let markerHTML = marker.getElement();
-        // markerHTML.children[0].children[0].children[1].style.fill = `${color}`;
-        // markerHTML.children[0].children[0].children[2].style.fill = `${color}`;
-
-        // this.marcadores.push(marker);
-
-        let color =
-          e.ubicacion.delivery_status == "DISPONIBLE"
-            ? "#3FB523"
-            : e.ubicacion.delivery_status == "EN RUTA"
-            ? "#000000"
-            : e.ubicacion.delivery_status == "INVITADO"
-            ? "#F69400"
-            : "#EF0049";
-
-        let el = document.createElement("div");
-        el.className = "marker";
-        el.dataset.repartidor = `${e._id}`;
-        el.style.display = `block`;
-        el.style.backgroundSize = `50px 50px`;
-        el.style.backgroundImage = `url(https://endoback.prbs.li/${e.urlFotos})`;
-        el.style.borderRadius = `50%`;
-        el.style.border = `5px solid ${color}`;
-        el.style.width = `50px`;
-        el.style.height = `50px`;
-
-        let marker = new mapboxgl.Marker(el);
-        let LngLat = e.ubicacion.coordinates;
-        marker.setLngLat(LngLat).setPopup(popup).addTo(this.map);
-        this.marcadores.push(marker);
+        if (index != 0) map.drawMarker(repartidor);
       });
     },
     removerMarcadores() {

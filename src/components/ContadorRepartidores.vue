@@ -11,12 +11,6 @@
           ref="repartidores"
           >{{ repartidores.disponible }} Repartidores disponibles</v-col
         >
-        <v-col cols="4" class="d-flex justify-center">
-          <v-btn small depressed color="#3FB523" dark rounded class="btn" @click="actualizarMapa">
-            <v-icon class="mr-1">mdi-refresh</v-icon>
-            Actualizar mapa</v-btn
-          >
-        </v-col>
       </v-row>
       <v-divider></v-divider>
       <v-row>
