@@ -1,15 +1,11 @@
 <template>
   <v-row>
     <v-col cols="12" class="pl-0 pr-0 pt-0">
-      <ContadorRepartidores
-        :repartidores="tiposRepartidores"
-        @actualizarMapa="buscarRepartidores"
-      />
+      <ContadorRepartidores />
     </v-col>
     <v-col cols="12" class="white mapa--contenedor">
       <div ref="map" class="map"></div>
     </v-col>
-    
   </v-row>
 </template>
 
@@ -19,6 +15,7 @@ import repartidores from "../common/Repartidores";
 import ContadorRepartidores from "./ContadorRepartidores";
 import Map from "../common/maps/Map";
 import Repartidor from "../common/maps/Repartidor";
+import store from "../store/index";
 
 export default {
   name: "MapaRepartidores",
@@ -86,7 +83,6 @@ export default {
     },
     drawRepartidores(map) {
       this.repartidores.forEach((e, index) => {
-        
         let repartidor = new Repartidor(
           e._id,
           e.nombres,
@@ -96,6 +92,8 @@ export default {
           e.ubicacion.coordinates,
           e.ubicacion.delivery_status
         );
+
+        this.contarRepartidores(repartidor.get().status);
 
         if (index == 0) {
           map.fly(repartidor.get().ubicacion);
@@ -122,11 +120,11 @@ export default {
       this.loading = false;
     },
     contarRepartidores(tipoRepartidor) {
-      if (tipoRepartidor == "DISPONIBLE") this.tiposRepartidores.disponible++;
+      if (tipoRepartidor == "DISPONIBLE") store.state.repartidoresDisponibles++;
       if (tipoRepartidor == "NO DISPONIBLE")
-        this.tiposRepartidores.noDisponible++;
-      if (tipoRepartidor == "INVITADO") this.tiposRepartidores.confirmando++;
-      if (tipoRepartidor == "EN RUTA") this.tiposRepartidores.enEntrega++;
+        store.state.repartidoresNoDisponibles++;
+      if (tipoRepartidor == "INVITADO") store.state.repartidoresConfirmando++;
+      if (tipoRepartidor == "EN RUTA") store.state.repartidoresEnEntrega++;
     },
     reiniciarRepartidores() {
       this.tiposRepartidores.disponible = 0;
