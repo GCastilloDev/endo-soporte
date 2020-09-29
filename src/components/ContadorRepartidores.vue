@@ -5,12 +5,6 @@
         <v-col cols="4" class="font-weight-bold d-flex align-end"
           >Mapa de repartidores</v-col
         >
-        <v-col
-          cols="4"
-          class="d-flex justify-center align-end text-subtitle-2 text"
-          ref="repartidores"
-          >{{ repartidores.disponible }} Repartidores disponibles</v-col
-        >
       </v-row>
       <v-divider></v-divider>
       <v-row>
