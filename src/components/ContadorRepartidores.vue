@@ -53,40 +53,7 @@ import { mapState } from "vuex";
 export default {
   name: "contadorRepartidores",
   data: () => ({
-    cantidad: 0,
-    status: "",
-    color: "text-red",
   }),
-  methods: {
-    contadorRepartidores(tipo) {
-      if (tipo == "disponibles") {
-        console.log(this.$refs.repartidores);
-        this.$refs.repartidores.innerHTML = `${this.repartidores.disponible} repartidores disponibles`;
-        this.$refs.repartidores.style.color = "#4AB930";
-      }
-
-      if (tipo == "no disponibles") {
-        console.log(this.$refs.repartidores);
-        this.$refs.repartidores.innerHTML = `${this.repartidores.noDisponible} repartidores no disponibles`;
-        this.$refs.repartidores.style.color = "#EF0049";
-      }
-
-      if (tipo == "en entrega") {
-        console.log(this.$refs.repartidores);
-        this.$refs.repartidores.innerHTML = `${this.repartidores.enEntrega} repartidores en entrega`;
-        this.$refs.repartidores.style.color = "#000000";
-      }
-
-      if (tipo == "confirmando") {
-        console.log(this.$refs.repartidores);
-        this.$refs.repartidores.innerHTML = `${this.repartidores.confirmando} repartidores confirmando`;
-        this.$refs.repartidores.style.color = "#F69400";
-      }
-    },
-    actualizarMapa() {
-      this.$emit("actualizarMapa");
-    },
-  },
   computed: {
     ...mapState([
       "repartidoresDisponibles",
