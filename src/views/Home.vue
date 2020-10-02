@@ -4,6 +4,7 @@
     <v-container class="pt-0">
       <v-row class="mt-6">
         <v-col cols="5" class="pedidos mt-0 pt-0">
+          <v-btn @click="prueba">Repartidores</v-btn>
           <!-- <h3>Pedidos pendientes</h3> -->
           <Pedidos />
         </v-col>
@@ -25,19 +26,18 @@ import MapaRepartidores from "../components/MapaRepartidores";
 
 // import Socket from "../common/socket/Socket";
 
-
 export default {
   name: "Home",
   mounted() {
     // let emitter = require("emitter-io");
-    // let socket = new Socket(
+    // this.socket = new Socket(
     //   "ZhsnL8uQ9szZ-F7aaDChbtFEaXLNGLyM",
     //   emitter,
     //   "endo-soporte-repartidores"
     // );
-    // socket.connect();
-    // socket.listen();
-    // socket.publish();
+    // this.socket.connect();
+    // this.socket.listen();
+    // this.socket.publish();
   },
   components: {
     Pedidos,
@@ -46,10 +46,14 @@ export default {
   },
   data: () => ({
     overlay: false,
+    socket: null,
   }),
   methods: {
     changeOverlay() {
       this.overlay = !this.overlay;
+    },
+    prueba() {
+      this.socket.solicitarRepartidores();
     },
   },
 };

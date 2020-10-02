@@ -5,14 +5,25 @@ export default class Repartidor {
   #telefono;
   #ubicacion;
   #status;
+  #map;
 
-  constructor(id, nombres, apellidos, urlFoto, telefono, ubicacion, status) {
+  constructor(
+    id,
+    nombres,
+    apellidos,
+    urlFoto,
+    telefono,
+    ubicacion,
+    status,
+    map
+  ) {
     this.#id = id;
     this.#nombre = `${nombres} ${apellidos}`;
     this.#avatar = `https://endoback.prbs.li/${urlFoto}`;
     this.#telefono = telefono;
     this.#ubicacion = ubicacion;
     this.#status = status;
+    this.#map = map;
   }
 
   get() {
@@ -32,5 +43,9 @@ export default class Repartidor {
 
   updateLocation(coordinates) {
     this.#ubicacion = coordinates;
+  }
+
+  fly() {
+    this.#map.flyToDelivery(this.#ubicacion);
   }
 }

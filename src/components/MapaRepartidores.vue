@@ -16,6 +16,7 @@ import ContadorRepartidores from "./ContadorRepartidores";
 import Map from "../common/maps/Map";
 import Repartidor from "../common/maps/Repartidor";
 import store from "../store/index";
+import Socket from "../common/socket/Socket";
 
 export default {
   name: "MapaRepartidores",
@@ -40,19 +41,38 @@ export default {
       enEntrega: 0,
       confirmando: 0,
     },
+    socket: null,
   }),
   methods: {
     async init() {
       this.$emit("overlay");
-      let map = new Map(
+
+      let map = await new Map(
         this.$refs.map,
         mapboxgl,
         "pk.eyJ1IjoiZ3VzdGF2b2NteCIsImEiOiJja2JicHRwOTAwM2xvMzBtb2Y5YXE1dmR5In0.pBZI2pb23_lbx7bH52MJnA"
       );
-      map.drawMap();
-      await this.getRepartidores();
+
+      await map.drawMap();
+
+      let emitter = await require("emitter-io");
+      this.socket = await new Socket(
+        "ZhsnL8uQ9szZ-F7aaDChbtFEaXLNGLyM",
+        emitter,
+        "endo-soporte-repartidores",
+        map,
+        store
+      );
+      await this.socket.connect();
+      await this.socket.listen();
+      // await this.socket.publish();
+      await this.socket.solicitarRepartidores();
+
+      map.fly([-101.207552, 19.7025002]);
+
+      // await this.getRepartidores();
       // await this.drawMap();
-      await this.drawRepartidores(map);
+      // await this.drawRepartidores(map);
       this.$emit("overlay");
     },
     async getRepartidores() {
@@ -82,7 +102,7 @@ export default {
       });
     },
     drawRepartidores(map) {
-      this.repartidores.forEach((e, index) => {
+      this.repartidores.forEach((e) => {
         let repartidor = new Repartidor(
           e._id,
           e.nombres,
@@ -95,12 +115,15 @@ export default {
 
         this.contarRepartidores(repartidor.get().status);
 
-        if (index == 0) {
-          map.fly(repartidor.get().ubicacion);
-          map.drawMarker(repartidor);
-        }
+        // if (index == 0) {
+        //   // map.fly(repartidor.get().ubicacion);
+        //   map.drawMarker(repartidor);
+        // }
 
-        if (index != 0) map.drawMarker(repartidor);
+        // if (index != 0) map.drawMarker(repartidor);
+
+        let prueba = map.drawMarker(repartidor);
+        console.log(prueba);
       });
     },
     removerMarcadores() {
