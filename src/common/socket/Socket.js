@@ -9,10 +9,15 @@ export default class Socket {
   constructor(key, emitter, chanel, map) {
     this.#key = key;
     this.#chanel = chanel;
+    // this.#emitter = emitter.connect({
+    //   host: 'ws://emitter.prbs.li',
+    //   port: 58080,
+    //   secure: false,
+    // });
     this.#emitter = emitter.connect({
-      host: 'ws://emitter.prbs.li',
-      port: 58080,
-      secure: false,
+      host: 'wss://emitter.prbs.li',
+      port: 58443,
+      secure: true,
     });
     this.#map = map;
   }
